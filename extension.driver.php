@@ -8,7 +8,7 @@
 		{
 			return array(
 				'name' => 'Dynamic Event Redirect',
-				'version'	=> '0.0.1',
+				'version'	=> '0.0.3',
 				'author'	=> array('name' => 'Max Wheeler',
 									'website' => 'http://makenosound.com/',
 									'email' => 'max@makenosound.com'),
@@ -44,7 +44,7 @@
 				),
 				array(
 					'page'		=> '/frontend/',
-					'delegate'	=> 'EventFinalSaveFilter',
+					'delegate'	=> 'EventPostSaveFilter',
 					'callback'	=> 'process_redirect'
 				),
 			);
