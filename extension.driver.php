@@ -8,7 +8,7 @@
 		{
 			return array(
 				'name' => 'Dynamic Event Redirect',
-				'version'	=> '0.0.3',
+				'version'	=> '0.0.4',
 				'author'	=> array('name' => 'Max Wheeler',
 									'website' => 'http://makenosound.com/',
 									'email' => 'max@makenosound.com'),
@@ -109,7 +109,7 @@
 				# Setup cleanurlparams ... or not
 				$join = ($cleanparams) ? ":" : "=";
 				$separator = ($cleanparams) ? "/" : "&";
-				$start = ($cleanparams) ? "/" : "?";
+				$start = ($cleanparams) ? "" : "?";
 				foreach ($data as $key => $val)
 				{
 					$encoded_data[] = urlencode($key) . $join . urlencode($val);
