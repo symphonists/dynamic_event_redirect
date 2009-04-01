@@ -44,7 +44,7 @@
 				),
 				array(
 					'page'		=> '/frontend/',
-					'delegate'	=> 'EventPostSaveFilter',
+					'delegate'	=> 'EventFinalSaveFilter',
 					'callback'	=> 'process_redirect'
 				),
 			);
@@ -79,40 +79,61 @@
 		{
 			# Check if in included filters
 			if ( ! in_array('dynamic-event-redirect', $context['event']->eParamFILTERS)) return;
-			if ( in_array('expect-multiple', $context['event']->eParamFILTERS)) return;
-			
+		
 			$mapping = explode(",", $_POST['der-params']);
 			$redirect = $_POST['redirect'];
+			$multiple = (in_array('expect-multiple', $context['event']->eParamFILTERS)) ? TRUE : FALSE;
 			$cleanparams = (isset($_POST['der-format']) && $_POST['der-format'] == 1) ? TRUE : FALSE;
+			$encoded_data = "";
 			
+			# Setup cleanurlparams ... or not
+			$join = ($cleanparams) ? ":" : "=";
+			$separator = ($cleanparams) ? "/" : "&";
+			$start = ($cleanparams) ? "" : "?";
 			$data = array();
+						
 			if(isset($mapping) && $redirect)
 			{
-				foreach ($mapping as $key)
+				if($multiple)
 				{
-					# If there's a match, map the value of the match. Else output the value.
-					if(isset($context['fields'][$key]))
-					{
-						$data[$key] = $context['fields'][$key];
+					$fields = $_POST['fields'];
+					foreach ($fields as $field) {
+						foreach ($field as $key => $value) {
+							if(in_array($key, $mapping))
+							{
+# Need to figure out how to get ID
+#								if($key == 'id') $value = $entry;
+								$data[$key][] = $value;
+							}
+						}
 					}
-					else if($key == 'id')
-					{
-						$data['id'] = $context['entry']->get('id');
-					}
-					else
-					{
-						$pair = explode(":", $key);
-						$data[$pair[0]] = $pair[1];
-					}
+					# Do key:pair bits
+					# Encode params
 				}
-				$encoded_data = "";
-				# Setup cleanurlparams ... or not
-				$join = ($cleanparams) ? ":" : "=";
-				$separator = ($cleanparams) ? "/" : "&";
-				$start = ($cleanparams) ? "" : "?";
-				foreach ($data as $key => $val)
+				else
 				{
-					$encoded_data[] = urlencode($key) . $join . urlencode($val);
+					$fields = $context['fields'];
+					foreach ($mapping as $key)
+					{
+						# If there's a match, map the value of the match. Else output the value.
+						if(isset($fields[$key]))
+						{
+							$data[$key] = $fields[$key];
+						}
+						else if($key == 'id')
+						{
+							$data['id'] = $context['entry']->get('id');
+						}
+						else
+						{
+							$pair = explode(":", $key);
+							$data[$pair[0]] = $pair[1];
+						}
+					}
+					foreach ($data as $key => $val)
+					{
+						$encoded_data[] = urlencode($key) . $join . urlencode($val);
+					}
 				}
 				redirect($redirect . $start . implode($separator, $encoded_data));
 			}
