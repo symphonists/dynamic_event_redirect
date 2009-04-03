@@ -64,15 +64,38 @@
 			if ( ! in_array('dynamic-event-redirect', $context['selected'])) return;
 			
 			$context['documentation'][] = new XMLElement('h3', 'Dynamic Event Redirect');
-			$context['documentation'][] = new XMLElement('p', 'To use, simply add a hidden input field to your form that has the name <code>der-params</code> and its value as a comma separated list of parameters you wish to include. For example, so to pass the variable <code>email</code> on you&#8217;d do something like:');
-			$code = '<input name="fields[email]" type="text" />
-<input type="hidden" name="der-get-params" value="email,foo:bar"/>';
+			$context['documentation'][] = new XMLElement('h4', 'URL Parameters');
+			$context['documentation'][] = new XMLElement('p', 'To use URL parameters in your redirect output, you need to add a hidden input field to your form with the name <code>der-url-params</code> and set its value as a <code>/</code> seperated list of parameters you wish to include. Like so:');
+			$code = '
+<input type="text" name="category" value="books-and-magazines"/>
+<input type="text" name="book-id" value="1234"/>
+<input type="hidden" name="der-url-params" value="category/book-id"/>
+<input type="hidden" name="redirect" value="http://amazon.com/"/>
+			';
 			$context['documentation'][] = contentBlueprintsEvents::processDocumentationCode($code);
-			$context['documentation'][] = new XMLElement('p', 'You can also output values directly by using key:value pairs.');
-			$context['documentation'][] = new XMLElement('h3', 'Clean URL Params');
-			$context['documentation'][] = new XMLElement('p', 'If you&#8217;re using Rowan&#8217;s <a href="http://overture21.com/forum/comments.php?DiscussionID=795">Clean URL Params</a> extension you can set the output to use clean syntax by adding the following to your form:');
-			$code = '<input name="der-format" type="1" />';
+			$context['documentation'][] = new XMLElement('p', 'The example above would result in the following URL: <code>http://amazon.com/books-and-magazines/1234/</code>. If a parameter isn&#8217;t set in the POST data its key (i.e., <code>category</code> in the example above) will be used in its place.');
+			
+			$context['documentation'][] = new XMLElement('h4', 'GET Parameters');
+			$context['documentation'][] = new XMLElement('p', 'You can use GET parameters with or without URL parameters. The usage is pretty much the same: add a hidden input field to your form that has the name <code>der-params</code> and set its value to a comma separated list of parameters you wish to include. Like so:');
+
+			$code = '
+<input type="text" name="category" value="books-and-magazines"/>
+<input type="text" name="book-id" value="1234"/>
+<input type="hidden" name="der-get-params" value="category,book-id"/>
+<input type="hidden" name="redirect" value="http://amazon.com/"/>
+			';
 			$context['documentation'][] = contentBlueprintsEvents::processDocumentationCode($code);
+			$context['documentation'][] = new XMLElement('p', 'The would result in the user being redirected to: <code>http://amazon.com/?category=books-and-magazines&amp;book-id=1234</code>.');
+			
+			$context['documentation'][] = new XMLElement('h4', 'Things to note');
+			$context['documentation'][] = new XMLElement('ul', '
+			<li>You&#8217;ll need to specify a redirect URL, else the filter won&#8217;t do anything.</li>
+			<li>Entry fields have priority over normal POST data. That is, data from the <code>fields[]</code> array will be used in place of identically named indexes from the POST data.</li>
+			<li>When using as a filter, you can pass on the ID of the entry you&#8217;re creating by adding <code>id</code> to your list of params.</li>
+			<li>You can also output values directly by using key:value pairs in the <code>der-params</code> value.</li>
+			<li>Does not work with events with &#8216;Allow multiple&#8217; filters, requires some changes to the core.</li>
+			<li><p>If you&#8217;re using Rowan&#8217;s <a href="http://overture21.com/forum/comments.php?DiscussionID=795">Clean URL Params</a> extension you can set the output to use clean syntax by adding the following to your form:</p>
+			<pre><code>&lt;input name="der-format" type="1" /&gt;</code></pre></li>');
 		}
 				
 		public function process_redirect($context)
