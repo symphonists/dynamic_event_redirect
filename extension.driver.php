@@ -8,11 +8,11 @@
 		{
 			return array(
 				'name' => 'Dynamic Event Redirect',
-				'version'	=> '0.0.5',
+				'version'	=> '1.0.0',
 				'author'	=> array('name' => 'Max Wheeler',
 									'website' => 'http://makenosound.com/',
 									'email' => 'max@makenosound.com'),
-				'release-date' => '2009-04-01',
+				'release-date' => '2010-06-08',
 			);
 		}
 		
@@ -101,15 +101,15 @@
 		public function process_redirect($context)
 		{
 			# Check if in included filters
-			if ( ! in_array('dynamic-event-redirect', $context['event']->eParamFILTERS)) return;
-			if ( in_array('expect-multiple', $context['event']->eParamFILTERS)) return;
+			if (in_array('dynamic-event-redirect', $context['event']->eParamFILTERS) && ! in_array('expect-multiple', $context['event']->eParamFILTERS) ) {
 			
-			$base_url = $_POST['redirect'];
-			$redirect = '';
+				$base_url = $_POST['redirect'];
+				$redirect = '';
 			
-			if(array_key_exists('der-url-params', $_POST)) $this->_do_url_params($redirect, $context);
-			if(array_key_exists('der-get-params', $_POST)) $this->_do_get_params($redirect, $context);
-			if($base_url) redirect($base_url . $redirect);
+				if(array_key_exists('der-url-params', $_POST)) $this->_do_url_params($redirect, $context);
+				if(array_key_exists('der-get-params', $_POST)) $this->_do_get_params($redirect, $context);
+				if($base_url) redirect($base_url . $redirect);
+			}
 		}
 		
 		/*-------------------------------------------------------------------------

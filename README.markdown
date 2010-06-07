@@ -1,8 +1,8 @@
 # Dynamic Event Redirect #
 
-Version: 0.0.5
+Version: 1.0.0
 Author: Max Wheeler ([max@makenosound.com](max@makenosound.com))  
-Build Date: 2009-04-01  
+Build Date: 2010-06-08  
 Requirements: Symphony 2.0.2 or later
 
 ## Description ##
@@ -56,3 +56,10 @@ The would result in the user being redirected to: `http://amazon.com/?category=b
 ## To do ##
 
 * Make work with 'Allow multiple'
+
+## Changelog ##
+
+
+**1.0.0:**
+
+* Allow DER to play nice with execution of EventPostSaveFilter callbacks of other extensions.
