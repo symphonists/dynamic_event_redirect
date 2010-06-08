@@ -1,8 +1,8 @@
 # Dynamic Event Redirect #
 
-Version: 1.0.0
+Version: 1.0.1  
 Author: Max Wheeler ([max@makenosound.com](max@makenosound.com))  
-Build Date: 2010-06-08  
+Build Date: 2010-06-09  
 Requirements: Symphony 2.0.2 or later
 
 ## Description ##
