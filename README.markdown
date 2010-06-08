@@ -56,9 +56,14 @@ The would result in the user being redirected to: `http://amazon.com/?category=b
 ## To do ##
 
 * Make work with 'Allow multiple'
+* Change `id` to  `system:id`
 
 ## Changelog ##
 
+
+**1.0.1:**
+
+* Change delegate to EventFinalSaveFilter
 
 **1.0.0:**
 
