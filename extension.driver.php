@@ -8,11 +8,11 @@
 		{
 			return array(
 				'name' => 'Dynamic Event Redirect',
-				'version'	=> '1.0.1',
+				'version'	=> '1.0.2',
 				'author'	=> array('name' => 'Max Wheeler',
 									'website' => 'http://makenosound.com/',
 									'email' => 'max@makenosound.com'),
-				'release-date' => '2010-06-09',
+				'release-date' => '2011-03-01',
 			);
 		}
 		
@@ -130,7 +130,7 @@
 						$data['id'] = $context['entry']->get('id');
 					}
 					# If there's a match in the fields[]
-					else if(array_key_exists($key, $context['fields']))
+					else if(isset($context['fields']) && array_key_exists($key, $context['fields']))
 					{
 						$data[] = $context['fields'][$key];
 					}
