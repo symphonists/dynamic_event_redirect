@@ -1,10 +1,5 @@
 # Dynamic Event Redirect #
 
-Version: 1.0.2  
-Author: Max Wheeler ([max@makenosound.com](max@makenosound.com))  
-Build Date: 2011-03-01  
-Requirements: Symphony 2.0.2 or later
-
 ## Description ##
 
 Adds an event and an event filter that allows you to build up a combination of both URL and GET parameters from POST data to append to your form redirects.
@@ -57,18 +52,3 @@ The would result in the user being redirected to: `http://amazon.com/?category=b
 
 * Make work with 'Allow multiple'
 * Change `id` to  `system:id`
-
-## Changelog ##
-
-**1.0.2:**
-
-* Check `$context['fields']` exists before using it
-
-
-**1.0.1:**
-
-* Change delegate to EventFinalSaveFilter
-
-**1.0.0:**
-
-* Allow DER to play nice with execution of EventPostSaveFilter callbacks of other extensions.

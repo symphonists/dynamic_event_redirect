@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension id="dynamic_event_redirect" status="released" xmlns="http://symphony-cms.com/schemas/extension/1.0">
+	<name>Dynamic Event Redirect</name>
+	<description>Smarter form redirects.</description>
+	<repo type="github">https://github.com/symphonists/dynamic_event_redirect</repo>
+	<url type="discuss">http://symphony-cms.com/discuss/thread/812/</url>
+	<types>
+		<type>Events</type>
+	</types>
+	<authors>
+		<author>
+			<name github="symphonists" symphony="community">Symphony Community</name>
+		</author>
+	</authors>
+	<releases>
+		<release version="1.0.2" date="2011-03-01" min="2.0.3" max="2.1.x" />
+	</releases>
+</extension>
